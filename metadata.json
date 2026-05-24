@@ -1,0 +1,6 @@
+{
+  "name": "DeepSeek 监控",
+  "description": "实时监控DeepSeek API可用性的后台常驻工具,支持异常通知提醒。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
