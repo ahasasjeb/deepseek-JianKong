@@ -36,7 +36,8 @@ class MonitorForegroundService : Service() {
     private val apiService = NetworkClient.createService()
 
     companion object {
-        const val CHANNEL_ID = "deepseek_monitor_channel"
+        const val REGULAR_CHANNEL_ID = "deepseek_monitor_regular_channel"
+        const val ERROR_CHANNEL_ID = "deepseek_monitor_error_channel"
         const val FOREGROUND_NOTIFICATION_ID = 1001
         const val ABNORMAL_NOTIFICATION_ID = 1002
 
@@ -153,6 +154,7 @@ class MonitorForegroundService : Service() {
                 if (success) {
                     lastCheckStatus.value = "正常"
                     updateNotificationText("监控服务正在运行", "DeepSeek 连接正常, 耗时: ${latency}ms")
+                    clearAbnormalNotification()
                     // Success resets the state of the abnormal notification so we alert again on next fault
                     hasSentAbnormalNotification = false
                 } else {
@@ -204,7 +206,7 @@ class MonitorForegroundService : Service() {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        return NotificationCompat.Builder(this, CHANNEL_ID)
+        return NotificationCompat.Builder(this, REGULAR_CHANNEL_ID)
             .setContentTitle(title)
             .setContentText(text)
             .setSmallIcon(android.R.drawable.stat_notify_sync)
@@ -227,7 +229,7 @@ class MonitorForegroundService : Service() {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(this, ERROR_CHANNEL_ID)
             .setContentTitle("DeepSeek 异常")
             .setContentText(errorDetail)
             .setSmallIcon(android.R.drawable.stat_notify_error)
@@ -241,18 +243,33 @@ class MonitorForegroundService : Service() {
         manager.notify(ABNORMAL_NOTIFICATION_ID, notification)
     }
 
+    private fun clearAbnormalNotification() {
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.cancel(ABNORMAL_NOTIFICATION_ID)
+    }
+
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                "DeepSeek API 监控服务",
-                NotificationManager.IMPORTANCE_HIGH
+            val regularChannel = NotificationChannel(
+                REGULAR_CHANNEL_ID,
+                "DeepSeek 常规通知",
+                NotificationManager.IMPORTANCE_LOW
             ).apply {
-                description = "实时在后台监控 DeepSeek API 连通性并进行本地提示"
+                description = "DeepSeek API 监控服务运行状态与成功请求提示"
                 lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             }
+            val errorChannel = NotificationChannel(
+                ERROR_CHANNEL_ID,
+                "DeepSeek 错误通知",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "DeepSeek API 异常、超时或连接失败提醒"
+                lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+                enableVibration(true)
+            }
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
+            manager.createNotificationChannel(regularChannel)
+            manager.createNotificationChannel(errorChannel)
         }
     }
 

@@ -1,5 +1,9 @@
 *.iml
 .gradle
+.gradle-local/
+.gradle-user/
+gradle-*-bin.zip
+gradle-*-all.zip
 .kotlin
 /local.properties
 /.idea/caches
