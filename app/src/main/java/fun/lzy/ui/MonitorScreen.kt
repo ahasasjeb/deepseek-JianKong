@@ -1,4 +1,4 @@
-package com.example.ui
+package fun.lzy.ui
 
 import android.Manifest
 import android.content.Context
@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.data.MonitorLog
+import fun.lzy.data.MonitorLog
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -796,7 +796,7 @@ fun LogItemCard(log: MonitorLog) {
                 )
 
                 Text(
-                    text = if (log.statusCode > 0) "200 OK" else "CODE ${log.statusCode}",
+                    text = if (log.statusCode > 0) "HTTP ${log.statusCode}" else "CODE ${log.statusCode}",
                     fontSize = 10.sp,
                     fontFamily = FontFamily.Monospace,
                     color = if (log.isSuccess) Color(0xFF15803D) else Color(0xFFB91C1C)

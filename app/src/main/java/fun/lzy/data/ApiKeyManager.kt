@@ -1,4 +1,4 @@
-package com.example.data
+package fun.lzy.data
 
 import android.content.Context
 import android.util.Base64
@@ -24,7 +24,7 @@ class ApiKeyManager(context: Context) {
 
     fun saveApiKey(apiKey: String) {
         try {
-            val encryptedBase64 = xorEncrypt(apiKey.toByteArray(Charsets.UTF_8))
+            val encryptedBase64 = xorEncrypt(apiKey.trim().toByteArray(Charsets.UTF_8))
             prefs.edit().putString(KEY_DEEPSEEK_API_KEY, encryptedBase64).apply()
         } catch (e: Exception) {
             // Log/Ignore

@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-  namespace = "com.example"
+  namespace = "fun.lzy"
   compileSdk { version = release(36) { minorApiLevel = 1 } }
 
   defaultConfig {
-    applicationId = "com.aistudio.deepseekmonitor.jkxpql"
+    applicationId = "fun.lzy"
     minSdk = 24
     targetSdk = 36
     versionCode = 1

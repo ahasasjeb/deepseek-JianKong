@@ -1,9 +1,9 @@
-package com.example
+package fun.lzy
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
-import com.example.ui.StatusWidget
-import com.example.ui.theme.MyApplicationTheme
+import fun.lzy.ui.StatusWidget
+import fun.lzy.ui.theme.MyApplicationTheme
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Rule

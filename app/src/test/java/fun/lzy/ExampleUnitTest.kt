@@ -1,4 +1,4 @@
-package com.example
+package fun.lzy
 
 import org.junit.Assert.*
 import org.junit.Test

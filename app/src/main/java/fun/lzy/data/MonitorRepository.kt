@@ -1,4 +1,4 @@
-package com.example.data
+package fun.lzy.data
 
 import kotlinx.coroutines.flow.Flow
 

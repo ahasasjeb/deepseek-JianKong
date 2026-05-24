@@ -1,4 +1,4 @@
-package com.example.service
+package fun.lzy.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -11,14 +11,14 @@ import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
-import com.example.MainActivity
-import com.example.data.ApiKeyManager
-import com.example.data.AppDatabase
-import com.example.data.MonitorLog
-import com.example.data.MonitorRepository
-import com.example.network.DeepSeekRequest
-import com.example.network.Message
-import com.example.network.NetworkClient
+import fun.lzy.MainActivity
+import fun.lzy.data.ApiKeyManager
+import fun.lzy.data.AppDatabase
+import fun.lzy.data.MonitorLog
+import fun.lzy.data.MonitorRepository
+import fun.lzy.network.DeepSeekRequest
+import fun.lzy.network.Message
+import fun.lzy.network.NetworkClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -85,7 +85,7 @@ class MonitorForegroundService : Service() {
 
             while (isRunningState.value) {
                 val apiKey = apiKeyManager.getApiKey()
-                if (apiKey.isEmpty()) {
+                if (apiKey.isBlank()) {
                     repository.insertLog(
                         MonitorLog(
                             isSuccess = false,
@@ -114,7 +114,7 @@ class MonitorForegroundService : Service() {
                     )
 
                     val response = apiService.getCompletions(
-                        authHeader = "Bearer $apiKey",
+                        authHeader = "Bearer ${apiKey.trim()}",
                         request = request
                     )
 

@@ -1,4 +1,4 @@
-package com.example.network
+package fun.lzy.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -16,6 +16,7 @@ object NetworkClient {
     fun createService(): DeepSeekApiService {
         val logging = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.HEADERS // Log headers for cleaner output
+            redactHeader("Authorization")
         }
 
         val okHttpClient = OkHttpClient.Builder()
@@ -26,7 +27,7 @@ object NetworkClient {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://api.deepseek.com/v1/")
+            .baseUrl("https://api.deepseek.com/")
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
