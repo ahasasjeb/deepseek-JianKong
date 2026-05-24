@@ -440,9 +440,12 @@ fun MonitorScreen(
                                 .testTag("save_api_key_button")
                                 .height(46.dp),
                             shape = RoundedCornerShape(12.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E293B))
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFF1E293B),
+                                contentColor = Color.White
+                            )
                         ) {
-                            Text("安全应用密钥", fontWeight = FontWeight.Bold)
+                            Text("安全应用密钥", fontWeight = FontWeight.Bold, color = Color.White)
                         }
                     }
                 }
