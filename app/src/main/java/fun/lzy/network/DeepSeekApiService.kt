@@ -1,4 +1,4 @@
-package fun.lzy.network
+package `fun`.lzy.network
 
 import com.squareup.moshi.JsonClass
 import retrofit2.Response

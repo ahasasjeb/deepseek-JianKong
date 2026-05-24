@@ -1,13 +1,11 @@
-package fun.lzy.ui
+package `fun`.lzy.ui
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -33,13 +30,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import fun.lzy.data.MonitorLog
+import `fun`.lzy.data.MonitorLog
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -419,9 +415,8 @@ fun MonitorScreen(
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        // Custom elegant security note representation matching HTML aesthetics
                         Text(
-                            text = "🔒 安全防护体系: API秘钥经过特定防篡改异或逻辑进行混合编排，本地化只保留在系统沙盒专有目录。无特权越狱极高安全等级保障，不root绝对无法获取。",
+                            text = "API Key 使用 Android Keystore 加密后保存在本机应用沙盒内，应用数据备份已关闭。",
                             fontSize = 11.sp,
                             lineHeight = 15.sp,
                             color = Color(0xFF64748B),

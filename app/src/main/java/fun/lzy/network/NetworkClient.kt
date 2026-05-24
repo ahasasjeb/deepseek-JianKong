@@ -1,4 +1,4 @@
-package fun.lzy.network
+package `fun`.lzy.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

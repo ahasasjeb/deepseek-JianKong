@@ -1,4 +1,4 @@
-package fun.lzy
+package `fun`.lzy
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,9 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import fun.lzy.ui.MonitorScreen
-import fun.lzy.ui.MonitorViewModel
-import fun.lzy.ui.theme.MyApplicationTheme
+import `fun`.lzy.ui.MonitorScreen
+import `fun`.lzy.ui.MonitorViewModel
+import `fun`.lzy.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

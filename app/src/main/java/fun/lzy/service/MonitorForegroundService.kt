@@ -1,4 +1,4 @@
-package fun.lzy.service
+package `fun`.lzy.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -11,14 +11,14 @@ import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
-import fun.lzy.MainActivity
-import fun.lzy.data.ApiKeyManager
-import fun.lzy.data.AppDatabase
-import fun.lzy.data.MonitorLog
-import fun.lzy.data.MonitorRepository
-import fun.lzy.network.DeepSeekRequest
-import fun.lzy.network.Message
-import fun.lzy.network.NetworkClient
+import `fun`.lzy.MainActivity
+import `fun`.lzy.data.ApiKeyManager
+import `fun`.lzy.data.AppDatabase
+import `fun`.lzy.data.MonitorLog
+import `fun`.lzy.data.MonitorRepository
+import `fun`.lzy.network.DeepSeekRequest
+import `fun`.lzy.network.Message
+import `fun`.lzy.network.NetworkClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -177,6 +177,23 @@ class MonitorForegroundService : Service() {
         lastCheckStatus.value = "已停止"
         stopForeground(true)
         stopSelf()
+    }
+
+    override fun onTimeout(startId: Int, fgsType: Int) {
+        isRunningState.value = false
+        lastCheckStatus.value = "已超时停止"
+        serviceScope.launch {
+            repository.insertLog(
+                MonitorLog(
+                    isSuccess = false,
+                    latencyMs = 0,
+                    statusCode = -4,
+                    errorMessage = "系统已停止 dataSync 前台服务，请重新打开应用启动监控"
+                )
+            )
+            stopForeground(true)
+            stopSelf()
+        }
     }
 
     private fun buildForegroundNotification(title: String, text: String): Notification {

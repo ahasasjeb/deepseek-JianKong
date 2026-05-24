@@ -10,6 +10,10 @@ android {
   namespace = "fun.lzy"
   compileSdk { version = release(36) { minorApiLevel = 1 } }
 
+  val hasReleaseSigning = listOf("STORE_PASSWORD", "KEY_PASSWORD").all {
+    !System.getenv(it).isNullOrBlank()
+  } && file(System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks").exists()
+
   defaultConfig {
     applicationId = "fun.lzy"
     minSdk = 24
@@ -41,7 +45,7 @@ android {
       isCrunchPngs = false
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-      signingConfig = signingConfigs.getByName("release")
+      signingConfig = signingConfigs.getByName(if (hasReleaseSigning) "release" else "debugConfig")
     }
     debug {
       signingConfig = signingConfigs.getByName("debugConfig")

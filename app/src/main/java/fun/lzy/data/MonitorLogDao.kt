@@ -1,4 +1,4 @@
-package fun.lzy.data
+package `fun`.lzy.data
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -8,9 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MonitorLogDao {
-    @Query("SELECT * FROM monitor_logs ORDER BY timestamp DESC")
-    fun getAllLogs(): Flow<List<MonitorLog>>
-
     @Query("SELECT * FROM monitor_logs ORDER BY timestamp DESC LIMIT :limit")
     fun getLatestLogs(limit: Int): Flow<List<MonitorLog>>
 
@@ -19,4 +16,7 @@ interface MonitorLogDao {
 
     @Query("DELETE FROM monitor_logs")
     suspend fun clearAllLogs()
+
+    @Query("DELETE FROM monitor_logs WHERE id NOT IN (SELECT id FROM monitor_logs ORDER BY timestamp DESC LIMIT :limit)")
+    suspend fun trimToLatest(limit: Int)
 }

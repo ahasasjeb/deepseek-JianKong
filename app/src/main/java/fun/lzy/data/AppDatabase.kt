@@ -1,4 +1,4 @@
-package fun.lzy.data
+package `fun`.lzy.data
 
 import android.content.Context
 import androidx.room.Database

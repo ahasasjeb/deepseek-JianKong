@@ -1,4 +1,4 @@
-package fun.lzy
+package `fun`.lzy
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
